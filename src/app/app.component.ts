@@ -1,58 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WeatherDataService } from './weather-data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'Sunshine';
-  private country = 'US';
-  private city = 'London';
-  private selected = {
-                        main:"Clear",
-                        description: "clear sky",
-                        temp: 2.79,
-                        temp_min: 2.1,
-                        temp_max: 2.79,
-                        day: "Today",
-                        pressure: 323,
-                        humidity: 32,
-                        wind: 101
-                      }
-  private forecasts = [
-                        {
-                          main:"Clear",
-                          description: "clear sky",
-                          temp: 2.79,
-                          temp_min: 2.1,
-                          temp_max: 2.79,
-                          day: "Today"
-                        },
-                        {
-                          main:"Clear",
-                          description: "clear sky",
-                          temp: 2.79,
-                          temp_min: 2.1,
-                          temp_max: 2.79,
-                          day: "Tomorrow"
-                        },
-                        {
-                          main:"Clear",
-                          description: "clear sky",
-                          temp: 2.79,
-                          temp_min: 2.1,
-                          temp_max: 2.79,
-                          day:"Sunday"
-                        },
-                        {
-                          main:"Clear",
-                          description: "clear sky",
-                          temp: 2.79,
-                          temp_min: 2.1,
-                          temp_max: 2.79,
-                          day: "Monday"
-                        }
-                      ]
+export class AppComponent implements OnInit{
 
+  private _title = 'Sunshine';
+  private _country = 'US';
+  private _city = 'London';
+  private _selectedItemIndex = 0;
+  private _selected;
+  private _forecasts;
+
+  constructor(private _weatherDataService: WeatherDataService){}
+  
+  ngOnInit(){
+    this._weatherDataService.getWeatherData()
+                            .subscribe(
+                              (result: any) => {this._city = result.city; this._country = result.country; this._forecasts = result.forecastList; this._selected = result.forecastList[0]},
+                              (error: string) => console.log(error));
+  }
+
+  private itemSelected(index: number){
+    this._selectedItemIndex = index;
+    this._selected = this._forecasts[this._selectedItemIndex];
+  }
 }
