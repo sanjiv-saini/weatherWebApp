@@ -1,0 +1,28 @@
+.itemFirstRow{
+    font-size: 24px;
+    padding: 5px;
+    margin: 0px;
+}
+
+.itemSecondRow{
+    color: grey;
+    padding:5px; 
+    margin: 0px;
+}
+
+.weatherListItem:hover, .selected{
+    /* border-bottom: 1px solid grey; */
+    background-color: #c8c8ca;
+    cursor: pointer;
+}
+
+.weatherListItem{
+    /* border-bottom: 1px solid grey; */
+    width: 400px;
+    padding: 5px;
+    padding-bottom: 0px;
+}   
+
+hr{
+    margin: 0px;
+}

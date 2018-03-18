@@ -1,43 +1,32 @@
 <header id="header">
-  <p id="logo">
-    {{ _title }}
-  </p>
+  <div id="logo">
+    <span>{{ title }}</span>
+    <span style="float: right">
+        <input type="text" [(ngModel)] = "city">
+        <input type="text" [(ngModel)] = "country">
+        <button (click) ="loadData()">Go</button>
+      </span>
+    </div>
+  
 </header>
-<div class="weatherCard" *ngIf="_forecasts && _forecasts.length>0">
-    <div id="weatherList">
-      <ul>
-        <li *ngFor="let forecast of _forecasts" >
-          <div [ngClass]="{'weatherListItem': true, 'selected': _selectedItemIndex==forecast.index}" (click)="itemSelected(forecast.index)">
-            <p class="itemFirstRow"><span>{{ forecast.day }}</span><span style="float: right">{{ forecast.temp }}&deg;</span></p>
-            <p class="itemSecondRow"><span>{{ forecast.main }}</span><span style="float: right">{{ forecast.temp_max + "&deg; / " + forecast.temp_min + "&deg;" }}</span></p>          
-          <hr>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div id="detailArea">
-        <p>
-          <span class="location">{{ _city + ", " + _country }}</span><br>
-          <span>{{ _selected.description }}</span>
-        </p>
-        <div class="detailContent">
-        <p style="float:left">
-          <span class="bigTemp">
-            {{ _selected.temp }}<sup>&#8451;</sup> 
-          </span>
-        </p>
-        <p style="float: right">
-          <span>pressure :</span><span class="measureValues">{{ _selected.pressure }} hPa</span><br>
-          <span>humidity :</span><span class="measureValues">{{ _selected.humidity }} %</span><br>
-          <span>wind speed :</span><span class="measureValues">{{ _selected.wind }} m/s</span><br>
-        </p>
-      </div>
-    </div>
+
+<div class="weatherCard" *ngIf="forecasts && forecasts.length>0">
+  <div id="weatherList">
+    <app-list-item *ngFor="let forecast of forecasts" 
+      [isSelected]="isSelected(forecast.index)" 
+      [forecast]="forecast" 
+      (select)="itemSelected($event)"></app-list-item>
   </div>
-  <p class="error" *ngIf="!_forecasts || _forecasts.length<=0">
-    some error occurred!!
-  </p>
+  <app-detail-view id="detailArea"
+    [city] = "resultCity"
+    [country] = "resultCountry"
+    [forecast] = "selected"></app-detail-view>
+</div>
+
+<p class="error" *ngIf="isErrorOccurred">
+ {{errorMsg}}
+</p>
+
 <footer>
   <p>welcome to sunshine weather app</p>
 </footer>
-

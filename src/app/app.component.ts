@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherDataService } from './weather-data.service';
+import { WeatherDataService } from './weather-data/weather-data.service';
+import { IForecast } from './weather-data/weather';
 
 @Component({
   selector: 'app-root',
@@ -8,24 +9,41 @@ import { WeatherDataService } from './weather-data.service';
 })
 export class AppComponent implements OnInit{
 
-  private _title = 'Sunshine';
-  private _country = 'US';
-  private _city = 'London';
-  private _selectedItemIndex = 0;
-  private _selected;
-  private _forecasts;
+  title: string = 'Sunshine';
+  country: string = 'US';
+  city: string = 'London';
+  selectedItemIndex: number = 0;
+  selected: IForecast;
+  forecasts: IForecast[];
+  isErrorOccurred: boolean = false;
+  errorMsg: string = "some error occurred";
+  resultCity: string;
+  resultCountry: string;
 
   constructor(private _weatherDataService: WeatherDataService){}
   
   ngOnInit(){
-    this._weatherDataService.getWeatherData()
+    this.loadData();
+  }
+
+  loadData(){
+    this._weatherDataService.getWeatherData(this.city, this.country)
                             .subscribe(
-                              (result: any) => {this._city = result.city; this._country = result.country; this._forecasts = result.forecastList; this._selected = result.forecastList[0]},
-                              (error: string) => console.log(error));
+                              (result: any) => {
+                                                this.resultCity = result.city; 
+                                                this.resultCountry = result.country; 
+                                                this.forecasts = result.forecastList; 
+                                                this.selected = result.forecastList[0]
+                                              },
+                              (error: string) => this.isErrorOccurred = true);
   }
 
   private itemSelected(index: number){
-    this._selectedItemIndex = index;
-    this._selected = this._forecasts[this._selectedItemIndex];
+    this.selectedItemIndex = index;
+    this.selected = this.forecasts[this.selectedItemIndex];
+  }
+
+  private isSelected(currIndex: number){
+    return this.selectedItemIndex == currIndex;
   }
 }
