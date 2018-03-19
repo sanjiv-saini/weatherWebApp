@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   loadData() {
+    this.isErrorOccurred = false;
     this._weatherDataService.getWeatherData(this.city, this.country)
                             .subscribe(
                               (result: any) => {

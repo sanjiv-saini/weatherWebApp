@@ -10,7 +10,7 @@
   
 </header>
 
-<div class="weatherCard" *ngIf="forecasts && forecasts.length>0">
+<div class="weatherCard" *ngIf="!isErrorOccurred">
   <div id="weatherList">
     <app-list-item *ngFor="let forecast of forecasts" 
       [isSelected]="isSelected(forecast.index)" 
