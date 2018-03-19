@@ -1,24 +1,26 @@
-<p>
-  <span class="location">{{ city + ", " + country }}</span>
-  <br>
-  <span>{{ forecast.description }}</span>
-</p>
-<div class="detailContent">
-  <p style="float:left">
-    <span class="bigTemp">
-      {{ forecast.temp }}
-      <sup>&#8451;</sup>
-    </span>
+<div *ngIf="forecast">
+  <p>
+    <span class="location">{{ city + ", " + country }}</span>
+    <br>
+    <span>{{ forecast.description }}</span>
   </p>
-  <p style="float: right">
-    <span>pressure :</span>
-    <span class="measureValues">{{ forecast.pressure }} hPa</span>
-    <br>
-    <span>humidity :</span>
-    <span class="measureValues">{{ forecast.humidity }} %</span>
-    <br>
-    <span>wind speed :</span>
-    <span class="measureValues">{{ forecast.wind }} m/s</span>
-    <br>
-  </p>
+  <div class="detailContent">
+    <p style="float:left">
+      <span class="bigTemp">
+        {{ forecast.temp }}
+        <sup>&#8451;</sup>
+      </span>
+    </p>
+    <p style="float: right">
+      <span>pressure :</span>
+      <span class="measureValues">{{ forecast.pressure }} hPa</span>
+      <br>
+      <span>humidity :</span>
+      <span class="measureValues">{{ forecast.humidity }} %</span>
+      <br>
+      <span>wind speed :</span>
+      <span class="measureValues">{{ forecast.wind }} m/s</span>
+      <br>
+    </p>
+  </div>
 </div>

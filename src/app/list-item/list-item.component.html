@@ -1,4 +1,4 @@
-<div [ngClass]="{'weatherListItem': true, 'selected': isSelected}" (click)="selectItem(forecast.index)">
+<div *ngIf="forecast" [ngClass]="{'weatherListItem': true, 'selected': isSelected}" (click)="selectItem(forecast.index)">
   <p class="itemFirstRow">
     <span>{{ forecast.day }}</span>
     <span style="float: right">{{ forecast.temp }}&deg;</span>

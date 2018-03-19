@@ -19,7 +19,11 @@ export class WeatherDataService {
     return this._http.get(url).map((response: Response) => this.parseResponse(response));
   }
 
-  parseResponse(response: Response): IWeather{
+  /**
+   * Parse the response from api for application consistency    
+   * @param response data received from api
+   */
+  private parseResponse(response: Response): IWeather{
     let responseJson: any = JSON.parse(response.text());
     let forecastList: IForecast[] = [];
     let skipDate: string = "";
@@ -64,7 +68,11 @@ export class WeatherDataService {
     return weatherData;    
   }
 
-  getDay(timeInSec: number) : string{
+  /**
+   * Based on given time return the day
+   * @param timeInSec time for which day has to be calculated
+   */
+  private getDay(timeInSec: number) : string{
     let currDate: Date = new Date();
     let givenDate: Date = new Date(timeInSec * 1000);
 
@@ -77,7 +85,10 @@ export class WeatherDataService {
     }
   }
 
-
+  /**
+   * It return the day in string for given day number
+   * @param dayNum day number between [0-6]
+   */
   getDayInString(dayNum: number): string{
     switch(dayNum){
       case 0: return "Sunday";
