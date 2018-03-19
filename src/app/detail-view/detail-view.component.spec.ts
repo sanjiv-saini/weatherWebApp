@@ -11,7 +11,7 @@ describe('DetailViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         DetailViewComponent
       ]
     })

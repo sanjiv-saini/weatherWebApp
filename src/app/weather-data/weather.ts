@@ -1,10 +1,10 @@
-export interface IWeather{
+export interface IWeather {
     city: string;
     country: string;
     forecastList: IForecast[];
 }
 
-export interface IForecast{
+export interface IForecast {
     index: number;
     temp: number;
     temp_min: number;

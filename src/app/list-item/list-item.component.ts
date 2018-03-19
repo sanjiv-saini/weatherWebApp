@@ -19,7 +19,7 @@ export class ListItemComponent implements OnInit {
   @Output()
   select: EventEmitter<number> = new EventEmitter<number>();
 
-  selectItem(index: number){
+  selectItem(index: number) {
     this.select.emit(index);
   }
 
