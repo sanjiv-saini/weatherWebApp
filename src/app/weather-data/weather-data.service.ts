@@ -9,11 +9,11 @@ export class WeatherDataService {
 
   constructor(private _http: Http) { }
 
-  private fetchUrl: string = "http://api.openweathermap.org/data/2.5/forecast";
+  private fetchUrl: string = "https://api.openweathermap.org/data/2.5/forecast";
   private apiKey: string = "de4ed9529200f62b0400f5818f1cdbd7";
   private unit: string = "metric";
 
-  //http://api.openweathermap.org/data/2.5/forecast?q=London,us&units=metric&APPID=de4ed9529200f62b0400f5818f1cdbd7
+  //https://api.openweathermap.org/data/2.5/forecast?q=London,us&units=metric&APPID=de4ed9529200f62b0400f5818f1cdbd7
   getWeatherData(city: string, country: string): Observable<IWeather>{
     let url: string =  `${this.fetchUrl}?q=${city},${country}&units=${this.unit}&APPID=${this.apiKey}`;
     return this._http.get(url).map((response: Response) => this.parseResponse(response));
