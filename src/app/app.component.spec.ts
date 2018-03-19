@@ -4,12 +4,12 @@ import { WeatherDataService } from './weather-data/weather-data.service';
 import { FormsModule } from '@angular/forms';
 import { ListItemComponent } from './list-item/list-item.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClient, FormsModule],
+      imports: [HttpClientModule, FormsModule],
       declarations: [
         AppComponent,
         ListItemComponent,

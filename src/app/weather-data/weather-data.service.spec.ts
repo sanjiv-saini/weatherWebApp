@@ -1,12 +1,12 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { WeatherDataService } from './weather-data.service';
-import { HttpClient } from 'selenium-webdriver/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('WeatherDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClient ],
+      imports: [ HttpClientModule ],
       providers: [ WeatherDataService ]
     });
   });
