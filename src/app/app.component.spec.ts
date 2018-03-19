@@ -1,15 +1,15 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { WeatherDataService } from './weather-data/weather-data.service';
-import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { ListItemComponent } from './list-item/list-item.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
+import { HttpClient } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule, FormsModule],
+      imports: [HttpClient, FormsModule],
       declarations: [
         AppComponent,
         ListItemComponent,

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { IWeather, IForecast } from '../weather-data/weather';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class WeatherDataService {
 
-  constructor(private _http: Http) { }
+  constructor(private httpClient: HttpClient) { }
 
   private fetchUrl = 'https://api.openweathermap.org/data/2.5/forecast';
   private apiKey = 'de4ed9529200f62b0400f5818f1cdbd7';
@@ -16,15 +16,14 @@ export class WeatherDataService {
   // https://api.openweathermap.org/data/2.5/forecast?q=London,us&units=metric&APPID=de4ed9529200f62b0400f5818f1cdbd7
   getWeatherData(city: string, country: string): Observable<IWeather> {
     const url =  `${this.fetchUrl}?q=${city},${country}&units=${this.unit}&APPID=${this.apiKey}`;
-    return this._http.get(url).map((response: Response) => this.parseResponse(response));
+    return this.httpClient.get(url).map((response) => this.parseResponse(response));
   }
 
   /**
    * Parse the response from api for application consistency
    * @param response data received from api
    */
-  private parseResponse(response: Response): IWeather {
-    const responseJson = JSON.parse(response.text());
+  private parseResponse(responseJson: any): IWeather {
     const forecastList: IForecast[] = [];
     let skipDate = '';
     let id = 0;
