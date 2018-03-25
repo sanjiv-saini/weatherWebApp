@@ -50,7 +50,7 @@ footer{
     display: table-cell;
 }
 
-.error{
+#error{
     color: red;
     text-align: center;
     font-size: 25px;

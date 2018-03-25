@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
   }
 
   loadData() {
-    this.isErrorOccurred = false;
-    this.selectedItemIndex = 0;
+    this.resetData();
     this._weatherDataService.getWeatherData(this.city, this.country)
                             .subscribe(
                               (result: any) => {
@@ -40,12 +39,17 @@ export class AppComponent implements OnInit {
                               (error: string) => this.isErrorOccurred = true);
   }
 
-  private itemSelected(index: number) {
+  resetData() {
+    this.isErrorOccurred = false;
+    this.selectedItemIndex = 0;
+  }
+
+  itemSelected(index: number) {
     this.selectedItemIndex = index;
     this.selected = this.forecasts[this.selectedItemIndex];
   }
 
-  private isSelected(currIndex: number) {
+  isSelected(currIndex: number) {
     return this.selectedItemIndex === currIndex;
   }
 }
