@@ -2,28 +2,31 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { IWeather, IForecast } from '../weather-data/weather';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class WeatherDataService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private fetchUrl = 'https://api.openweathermap.org/data/2.5/forecast';
-  private apiKey = 'de4ed9529200f62b0400f5818f1cdbd7';
   private unit = 'metric';
 
-  // https://api.openweathermap.org/data/2.5/forecast?q=London,us&units=metric&APPID=de4ed9529200f62b0400f5818f1cdbd7
   getWeatherData(city: string, country: string): Observable<IWeather> {
-    const url =  `${this.fetchUrl}?q=${city},${country}&units=${this.unit}&APPID=${this.apiKey}`;
-    return this.httpClient.get(url).map((response) => this.parseResponse(response));
+    const params = new HttpParams()
+      .set('q', city + ',' + country)
+      .set('units', this.unit)
+      .set('APPID', environment.apiKey);
+
+    return this.httpClient.get(environment.endpointBase, {params: params})
+      .map((response) => this.parseResponse(response));
   }
 
   /**
    * Parse the response from api for application consistency
    * @param response data received from api
    */
-  private parseResponse(responseJson: any): IWeather {
+  parseResponse(responseJson: any): IWeather {
     const forecastList: IForecast[] = [];
     let skipDate = '';
     let id = 0;
@@ -71,7 +74,7 @@ export class WeatherDataService {
    * Based on given time return the day
    * @param timeInSec time for which day has to be calculated
    */
-  private getDay(timeInSec: number): string {
+  getDay(timeInSec: number): string {
     const currDate: Date = new Date();
     const givenDate: Date = new Date(timeInSec * 1000);
 
