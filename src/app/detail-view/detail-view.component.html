@@ -2,7 +2,7 @@
   <p>
     <span class="location">{{ city + ", " + country }}</span>
     <br>
-    <span>{{ forecast.description }}</span>
+    <span class="forecastDesc">{{ forecast.description }}</span>
   </p>
   <div class="detailContent">
     <p style="float:left">
@@ -13,13 +13,13 @@
     </p>
     <p style="float: right">
       <span>pressure :</span>
-      <span class="measureValues">{{ forecast.pressure }} hPa</span>
+      <span class="measureValues pressureForecast">{{ forecast.pressure }} hPa</span>
       <br>
       <span>humidity :</span>
-      <span class="measureValues">{{ forecast.humidity }} %</span>
+      <span class="measureValues humidityForecast">{{ forecast.humidity }} %</span>
       <br>
       <span>wind speed :</span>
-      <span class="measureValues">{{ forecast.wind }} m/s</span>
+      <span class="measureValues windForecast">{{ forecast.wind }} m/s</span>
       <br>
     </p>
   </div>
